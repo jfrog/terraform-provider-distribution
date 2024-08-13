@@ -67,7 +67,7 @@ jobs:
           JFROG_URL: ${{ secrets.JFROG_URL }}
           JFROG_ACCESS_TOKEN: ${{ secrets.JFROG_ACCESS_TOKEN }}
         run: |
-          RT_VERSION=$(curl -s -L "${JFROG_URL}/artifactory/api/system/version" -H "Authorization: Bearer ${JFROG_ACCESS_TOKEN}"" | jq -r .version)
+          RT_VERSION=$(curl -s -L "${JFROG_URL}/artifactory/api/system/version" -H "Authorization: Bearer ${JFROG_ACCESS_TOKEN}" | jq -r .version)
           echo $RT_VERSION
           echo "version=$RT_VERSION" >> "$GITHUB_OUTPUT"
       - name: Execute acceptance tests
