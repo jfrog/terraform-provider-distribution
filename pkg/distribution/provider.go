@@ -151,7 +151,8 @@ func (p *DistributionProvider) DataSources(ctx context.Context) []func() datasou
 
 func (p *DistributionProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		// NewSigningKeyResource,
+		NewSigningKeyResource,
+		NewVaultSigningKeyResource,
 	}
 }
 
