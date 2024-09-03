@@ -10,6 +10,8 @@ import (
 	"github.com/jfrog/terraform-provider-shared/util"
 )
 
+// TestAccReleaseBundleV1_full would only be successful when executed against Artifactory instance
+// that has Distribution enabled (i.e. has edge node(s) configured)
 func TestAccReleaseBundleV1_full(t *testing.T) {
 	_, fqrn, resourceName := testutil.MkNames("test-release-bundle-v1", "distribution_release_bundle_v1")
 
@@ -99,7 +101,6 @@ func TestAccReleaseBundleV1_full(t *testing.T) {
 	updatedConfig := util.ExecuteTemplate("TestAccReleaseBundleV1_full", updatedTemplate, testData)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProviders(),
 		Steps: []resource.TestStep{
 			{
@@ -128,7 +129,7 @@ func TestAccReleaseBundleV1_full(t *testing.T) {
 					resource.TestCheckResourceAttrSet(fqrn, "state"),
 					resource.TestCheckResourceAttrSet(fqrn, "created"),
 					resource.TestCheckResourceAttrSet(fqrn, "created_by"),
-					resource.TestCheckResourceAttr(fqrn, "artifacts.#", "8"),
+					resource.TestCheckResourceAttr(fqrn, "artifacts.#", "4"),
 					resource.TestCheckResourceAttrSet(fqrn, "artifacts_size"),
 					resource.TestCheckResourceAttrSet(fqrn, "archived"),
 				),
@@ -169,7 +170,7 @@ func TestAccReleaseBundleV1_full(t *testing.T) {
 					resource.TestCheckResourceAttrSet(fqrn, "state"),
 					resource.TestCheckResourceAttrSet(fqrn, "created"),
 					resource.TestCheckResourceAttrSet(fqrn, "created_by"),
-					resource.TestCheckResourceAttr(fqrn, "artifacts.#", "8"),
+					resource.TestCheckResourceAttr(fqrn, "artifacts.#", "4"),
 					resource.TestCheckResourceAttrSet(fqrn, "artifacts_size"),
 					resource.TestCheckResourceAttrSet(fqrn, "archived"),
 				),
@@ -242,7 +243,6 @@ func TestAccReleaseBundleV1_invalid_name(t *testing.T) {
 			config := util.ExecuteTemplate("TestAccReleaseBundleV1_full", template, testData)
 
 			resource.Test(t, resource.TestCase{
-				PreCheck:                 func() { testAccPreCheck(t) },
 				ProtoV6ProviderFactories: testAccProviders(),
 				Steps: []resource.TestStep{
 					{
@@ -311,7 +311,6 @@ func TestAccReleaseBundleV1_invalid_version(t *testing.T) {
 			config := util.ExecuteTemplate("TestAccReleaseBundleV1_full", template, testData)
 
 			resource.Test(t, resource.TestCase{
-				PreCheck:                 func() { testAccPreCheck(t) },
 				ProtoV6ProviderFactories: testAccProviders(),
 				Steps: []resource.TestStep{
 					{
@@ -380,7 +379,6 @@ func TestAccReleaseBundleV1_invalid_query_name(t *testing.T) {
 			config := util.ExecuteTemplate("TestAccReleaseBundleV1_full", template, testData)
 
 			resource.Test(t, resource.TestCase{
-				PreCheck:                 func() { testAccPreCheck(t) },
 				ProtoV6ProviderFactories: testAccProviders(),
 				Steps: []resource.TestStep{
 					{
