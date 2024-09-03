@@ -21,7 +21,7 @@ var Version = "1.0.0"
 // needs to be exported so make file can update this
 var productId = "terraform-provider-distribution/" + Version
 
-var _ provider.Provider = (*DistributionProvider)(nil)
+var _ provider.Provider = &DistributionProvider{}
 
 type DistributionProvider struct {
 	Meta util.ProviderMetadata
@@ -95,36 +95,32 @@ func (p *DistributionProvider) Configure(ctx context.Context, req provider.Confi
 	}
 
 	if accessToken == "" {
-		resp.Diagnostics.AddWarning(
+		resp.Diagnostics.AddError(
 			"Missing JFrog Access Token",
-			"Access Token was not found in the JFROG_ACCESS_TOKEN environment variable, provider configuration block access_token attribute, or Terraform Cloud TFC_WORKLOAD_IDENTITY_TOKEN environment variable. Platform functionality will be affected.",
+			"Access Token was not found in the JFROG_ACCESS_TOKEN environment variable, provider configuration block access_token attribute, or Terraform Cloud TFC_WORKLOAD_IDENTITY_TOKEN environment variable.",
+		)
+		return
+	}
+
+	_, err = client.AddAuth(platformClient, "", accessToken)
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error adding Auth to Resty client",
+			err.Error(),
+		)
+		return
+	}
+
+	artifactoryVersion, err := util.GetArtifactoryVersion(platformClient)
+	if err != nil {
+		resp.Diagnostics.AddWarning(
+			"Error getting Artifactory version",
+			fmt.Sprintf("Provider functionality might be affected by the absence of Artifactory version. %v", err),
 		)
 	}
 
-	artifactoryVersion := ""
-	if len(accessToken) > 0 {
-		_, err = client.AddAuth(platformClient, "", accessToken)
-		if err != nil {
-			resp.Diagnostics.AddError(
-				"Error adding Auth to Resty client",
-				err.Error(),
-			)
-			return
-		}
-
-		version, err := util.GetArtifactoryVersion(platformClient)
-		if err != nil {
-			resp.Diagnostics.AddWarning(
-				"Error getting Artifactory version",
-				fmt.Sprintf("Provider functionality might be affected by the absence of Artifactory version. %v", err),
-			)
-		}
-
-		artifactoryVersion = version
-
-		featureUsage := fmt.Sprintf("Terraform/%s", req.TerraformVersion)
-		go util.SendUsage(ctx, platformClient.R(), productId, featureUsage)
-	}
+	featureUsage := fmt.Sprintf("Terraform/%s", req.TerraformVersion)
+	go util.SendUsage(ctx, platformClient.R(), productId, featureUsage)
 
 	meta := util.ProviderMetadata{
 		Client:             platformClient,
@@ -151,6 +147,7 @@ func (p *DistributionProvider) DataSources(ctx context.Context) []func() datasou
 
 func (p *DistributionProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
+		NewReleaseBundleV1Resource,
 		NewSigningKeyResource,
 		NewVaultSigningKeyResource,
 	}

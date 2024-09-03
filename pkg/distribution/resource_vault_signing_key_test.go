@@ -55,7 +55,6 @@ func TestAccVaultSigningKey_full(t *testing.T) {
 	config := util.ExecuteTemplate("TestAccVaultSigningKey_gpg_full", template, testData)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProviders(),
 		Steps: []resource.TestStep{
 			{

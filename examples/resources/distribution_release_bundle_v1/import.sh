@@ -1,0 +1,1 @@
+import distribution_release_bundle_v1.my-release-bundle-v1 my-release-bundle-v1:1.0.0

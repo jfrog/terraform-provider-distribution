@@ -168,7 +168,6 @@ EOF
 	updatedConfig := util.ExecuteTemplate("TestAccSigningKey_gpg_full", template, updatedTestData)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProviders(),
 		Steps: []resource.TestStep{
 			{
@@ -320,7 +319,6 @@ EOF
 	updatedConfig := util.ExecuteTemplate("TestAccSigningKey_pgp_full", template, updatedTestData)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheck(t) },
 		ProtoV6ProviderFactories: testAccProviders(),
 		Steps: []resource.TestStep{
 			{
