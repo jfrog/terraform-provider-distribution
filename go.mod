@@ -1,6 +1,7 @@
 module github.com/jfrog/terraform-provider-distribution
 
 go 1.22.5
+toolchain go1.22.8
 
 require (
 	github.com/hashicorp/terraform-plugin-docs v0.19.4
@@ -20,7 +21,7 @@ require (
 	github.com/bgentry/speakeasy v0.1.0 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.6.1 // indirect
 	github.com/cloudflare/circl v1.3.7 // indirect
-	github.com/go-resty/resty/v2 v2.15.0 // indirect
+	github.com/go-resty/resty/v2 v2.15.3 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -82,7 +83,7 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.24.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 	github.com/hashicorp/terraform-plugin-testing v1.10.0
-	github.com/jfrog/terraform-provider-shared v1.25.5
+	github.com/jfrog/terraform-provider-shared v1.26.0
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
