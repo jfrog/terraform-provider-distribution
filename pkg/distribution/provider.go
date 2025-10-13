@@ -154,6 +154,7 @@ func (p *DistributionProvider) Resources(ctx context.Context) []func() resource.
 		NewReleaseBundleV1Resource,
 		NewSigningKeyResource,
 		NewVaultSigningKeyResource,
+		NewPermissionResource,
 	}
 }
 
