@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	DistributionEndpoint = "distribution/api/v1/release_bundle/{name}/{version}/distribution"
-	DistributionEndpoint  = "distribution/api/v1/release_bundle/{name}/{version}/distribution"
+	DistributionEndpoint = "distribution/api/v1/release_bundle/{name}/{version}/distribution/{tracker_id}"
+	DistributionEndpoint  = "distribution/api/v1/release_bundle/{name}/{version}/distribution/{tracker_id}"
 )
 
 func NewReleaseBundleDistributionResource() resource.Resource {
@@ -32,11 +32,13 @@ type ReleaseBundleDistributionResource struct {
 type ReleaseBundleDistributionResourceModel struct {
 	Name types.String `tfsdk:"name"`
 	Version types.String `tfsdk:"version"`
+	TrackerId types.String `tfsdk:"tracker_id"`
 }
 
 type DistributionAPIModel struct {
 	Name string `json:"name"`
 	Version string `json:"version"`
+	TrackerId string `json:"tracker_id"`
 }
 
 func (r *ReleaseBundleDistributionResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -53,6 +55,10 @@ func (r *ReleaseBundleDistributionResource) Schema(_ context.Context, _ resource
 			"version": schema.StringAttribute{
 				Required: true,
 				Description: "The version of the resource.",
+			},
+			"tracker_id": schema.StringAttribute{
+				Required: true,
+				Description: "The tracker_id of the resource.",
 			},
 		},
 		MarkdownDescription: "Manages distribution in JFrog Distribution.",
@@ -83,6 +89,7 @@ func (r *ReleaseBundleDistributionResource) Read(ctx context.Context, req resour
 		SetPathParams(map[string]string{
 			"name": state.Name.ValueString(),
 			"version": state.Version.ValueString(),
+			"tracker_id": state.TrackerId.ValueString(),
 		}).
 		SetResult(&result).
 		Get(DistributionEndpoint)

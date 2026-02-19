@@ -25,6 +25,8 @@ func TestAccDistribution_basic(t *testing.T) {
 func testAccDistributionConfig_basic() string {
 	return `
 resource "distribution_distribution" "test" {
+  name = "test-value"
+  version = "test-value"
 }
 `
 }

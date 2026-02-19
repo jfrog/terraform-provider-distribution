@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	ReceivedEndpoint = "distribution/api/v2/release_bundle/received/{name}"
-	ReceivedEndpoint  = "distribution/api/v2/release_bundle/received/{name}"
+	ReceivedsEndpoint = "distribution/api/v2/release_bundle/received"
+	ReceivedEndpoint  = "distribution/api/v2/release_bundle/received/{name}/{version}"
 )
 
 func NewReleaseBundleReceivedResource() resource.Resource {
@@ -31,10 +31,12 @@ type ReleaseBundleReceivedResource struct {
 
 type ReleaseBundleReceivedResourceModel struct {
 	Name types.String `tfsdk:"name"`
+	Version types.String `tfsdk:"version"`
 }
 
 type ReceivedAPIModel struct {
 	Name string `json:"name"`
+	Version string `json:"version"`
 }
 
 func (r *ReleaseBundleReceivedResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -47,6 +49,10 @@ func (r *ReleaseBundleReceivedResource) Schema(_ context.Context, _ resource.Sch
 			"name": schema.StringAttribute{
 				Required: true,
 				Description: "The name of the resource.",
+			},
+			"version": schema.StringAttribute{
+				Required: true,
+				Description: "The version of the resource.",
 			},
 		},
 		MarkdownDescription: "Manages received in JFrog Distribution.",
@@ -76,6 +82,7 @@ func (r *ReleaseBundleReceivedResource) Read(ctx context.Context, req resource.R
 	response, err := r.ProviderData.Client.R().
 		SetPathParams(map[string]string{
 			"name": state.Name.ValueString(),
+			"version": state.Version.ValueString(),
 		}).
 		SetResult(&result).
 		Get(ReceivedEndpoint)
@@ -99,4 +106,31 @@ func (r *ReleaseBundleReceivedResource) Read(ctx context.Context, req resource.R
 
 
 
+
+func (r *ReleaseBundleReceivedResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
+	go util.SendUsageResourceDelete(ctx, r.ProviderData.Client.R(), r.ProviderData.ProductId, r.TypeName)
+
+	var state ReleaseBundleReceivedResourceModel
+	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
+
+	response, err := r.ProviderData.Client.R().
+		SetPathParams(map[string]string{
+			"name": state.Name.ValueString(),
+			"version": state.Version.ValueString(),
+		}).
+		Delete(ReceivedEndpoint)
+	if err != nil {
+		utilfw.UnableToDeleteResourceError(resp, err.Error())
+		return
+	}
+
+	if response.StatusCode() == http.StatusNotFound {
+		return
+	}
+
+	if response.IsError() {
+		utilfw.UnableToDeleteResourceError(resp, response.String())
+		return
+	}
+}
 

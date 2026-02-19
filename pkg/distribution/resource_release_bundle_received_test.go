@@ -26,6 +26,7 @@ func testAccReleaseBundleReceivedConfig_basic() string {
 	return `
 resource "distribution_received" "test" {
   name = "test-value"
+  version = "test-value"
 }
 `
 }

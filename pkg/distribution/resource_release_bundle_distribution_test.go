@@ -27,6 +27,7 @@ func testAccReleaseBundleDistributionConfig_basic() string {
 resource "distribution_distribution" "test" {
   name = "test-value"
   version = "test-value"
+  tracker_id = "test-value"
 }
 `
 }
