@@ -1,3 +1,9 @@
+## 1.4.0 (March 16, 2026)
+
+FEATURES:
+
+* **New Resource:** `distribution_received_status` PR: [#47](https://github.com/jfrog/terraform-provider-distribution/pull/47)
+
 ## 1.3.0 (October 13, 2025). Tested on Artifactory 7.124.1 with Terraform 1.13.3 and OpenTofu 1.10.6
 
 FEATURES:
