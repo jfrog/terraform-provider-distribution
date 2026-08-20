@@ -1,3 +1,39 @@
+## 1.3.1 (August 20, 2026)
+
+SECURITY:
+
+* Remediate CVE-2026-39821.
+* Remediate CVE-2026-56865.
+* Remediate CVE-2026-56864.
+* Remediate CVE-2026-33818.
+* Remediate CVE-2026-46600.
+* Remediate CVE-2026-56862.
+* Remediate CVE-2026-56859.
+* Remediate CVE-2026-56860.
+* Remediate CVE-2026-56858.
+* Remediate CVE-2026-56853.
+* Remediate CVE-2026-25680.
+* Remediate CVE-2026-42506.
+* Remediate CVE-2026-42502.
+* Remediate CVE-2026-25681.
+* Remediate CVE-2026-27136.
+* Remediate CVE-2026-46595.
+* Remediate CVE-2026-42508.
+* Remediate CVE-2026-39834.
+* Remediate CVE-2026-39833.
+* Remediate CVE-2026-39832.
+* Remediate CVE-2026-39831.
+* Remediate CVE-2026-39830.
+* Remediate CVE-2026-39829.
+* Remediate CVE-2026-46597.
+* Remediate CVE-2026-39828.
+* Remediate CVE-2026-39827.
+* Remediate CVE-2026-39835.
+* Remediate CVE-2026-46598.
+* Remediate CVE-2025-47914.
+* Remediate CVE-2025-58181.
+* Remediate CVE-2026-1229.
+
 ## 1.3.0 (October 13, 2025). Tested on Artifactory 7.124.1 with Terraform 1.13.3 and OpenTofu 1.10.6
 
 FEATURES:
