@@ -1,4 +1,4 @@
-## 1.3.1 (August 20, 2026)
+## 1.3.1 (August 20, 2026). Tested on Artifactory 7.164.0 with Terraform 1.15.9 and OpenTofu 1.12.6
 
 SECURITY:
 
