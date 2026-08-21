@@ -34,6 +34,13 @@ SECURITY:
 * Remediate CVE-2025-58181.
 * Remediate CVE-2026-1229.
 
+IMPROVEMENTS:
+
+* Bump `github.com/jfrog/terraform-provider-shared` from 1.30.6 to 1.30.8.
+* Bump `github.com/hashicorp/terraform-plugin-framework` from 1.16.1 to 1.17.0.
+* Bump `github.com/hashicorp/terraform-plugin-log` from 0.9.0 to 0.10.0.
+* Bump `github.com/hashicorp/terraform-plugin-testing` from 1.13.3 to 1.14.0.
+
 ## 1.3.0 (October 13, 2025). Tested on Artifactory 7.124.1 with Terraform 1.13.3 and OpenTofu 1.10.6
 
 FEATURES:
